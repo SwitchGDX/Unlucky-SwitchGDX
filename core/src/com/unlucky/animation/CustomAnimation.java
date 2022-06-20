@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Array;
  * @author Ivan Vinski
  * @since 1.0
  */
-public class CustomAnimation extends Animation {
+public class CustomAnimation extends Animation<TextureRegion> {
 
     private float stateTime;
     private boolean playing;

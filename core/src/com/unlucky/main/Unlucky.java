@@ -29,7 +29,7 @@ public class Unlucky extends Game {
     public static final String TITLE = "Unlucky Version " + VERSION;
 
     // Links
-    public static final String GITHUB = "https://github.com/mingli1/Unlucky";
+    public static final String GITHUB = "https://github.com/TheLogicMaster/Unlucky";
     public static final String YOUTUBE = "https://www.youtube.com/channel/UC-oA-vkeYrgEy23Sq2PLC8w/videos?shelf_id=0&sort=dd&view=0";
 
     // Desktop screen dimensions
@@ -111,7 +111,7 @@ public class Unlucky extends Game {
         menuBackground[2].setVector(60, 0);
 
         // profiler
-        GLProfiler.enable();
+//        GLProfiler.enable();
 
         this.setScreen(menuScreen);
 	}
@@ -137,20 +137,20 @@ public class Unlucky extends Game {
         victoryScreen.dispose();
         settingsScreen.dispose();
 
-        GLProfiler.disable();
+//        GLProfiler.disable();
 	}
 
     /**
      * Logs profile for SpriteBatch calls
      */
 	public void profile(String source) {
-        System.out.println("Profiling " + source + "..." + "\n" +
-            "  Drawcalls: " + GLProfiler.drawCalls +
-            ", Calls: " + GLProfiler.calls +
-            ", TextureBindings: " + GLProfiler.textureBindings +
-            ", ShaderSwitches:  " + GLProfiler.shaderSwitches +
-            " vertexCount: " + GLProfiler.vertexCount.value);
-        GLProfiler.reset();
+//        System.out.println("Profiling " + source + "..." + "\n" +
+//            "  Drawcalls: " + GLProfiler.drawCalls +
+//            ", Calls: " + GLProfiler.calls +
+//            ", TextureBindings: " + GLProfiler.textureBindings +
+//            ", ShaderSwitches:  " + GLProfiler.shaderSwitches +
+//            " vertexCount: " + GLProfiler.vertexCount.value);
+//        GLProfiler.reset();
     }
 
 }

@@ -1,5 +1,7 @@
 package com.unlucky.ui;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -135,6 +137,29 @@ public class Hud extends UI {
     }
 
     public void update(float dt) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_DOWN))
+                dirTime = 0;
+            touchDown = true;
+            dirIndex = 0;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_UP))
+                dirTime = 0;
+            touchDown = true;
+            dirIndex = 1;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_RIGHT))
+                dirTime = 0;
+            touchDown = true;
+            dirIndex = 2;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.DPAD_LEFT))
+                dirTime = 0;
+            touchDown = true;
+            dirIndex = 3;
+        } else
+            touchDown = false;
+
         if (touchDown) {
             dirTime += dt;
             // quick tap to change direction
@@ -205,7 +230,7 @@ public class Hud extends UI {
             gameScreen.getGame().fps.setPosition(5, 5);
             stage.addActor(gameScreen.getGame().fps);
         }
-        for (int i = 0; i < 4; i++) dirPad[i].setVisible(toggle);
+        for (int i = 0; i < 4; i++) dirPad[i].setVisible(/*toggle*/ false);
         for (int i = 0; i < 2; i++) optionButtons[i].setVisible(toggle);
         levelDescriptor.setVisible(toggle);
     }

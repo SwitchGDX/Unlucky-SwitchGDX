@@ -1,5 +1,7 @@
 package com.unlucky.ui.battleui;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -96,31 +98,35 @@ public class BattleEventHandler extends BattleUI {
         clickLabel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (dialogIndex + 1 == currentDialog.length && endCycle) {
-                    if (!p.settings.muteSfx) rm.textprogression.play(p.settings.sfxVolume);
-                    // the text animation has run through every element of the text array
-                    endDialog();
-                    handleBattleEvent(nextEvent);
-                }
-                // after a cycle of text animation ends, clicking the UI goes to the next cycle
-                else if (endCycle && dialogIndex < currentDialog.length) {
-                    if (!p.settings.muteSfx) rm.textprogression.play(p.settings.sfxVolume);
-                    dialogIndex++;
-                    reset();
-                    currentText = currentDialog[dialogIndex];
-                    anim = currentText.split("");
-                    beginCycle = true;
-                }
-                // clicking on the box during a text animation completes it early
-                else if (beginCycle && !endCycle) {
-                    resultingText = currentText;
-                    textLabel.setText(resultingText);
-                    beginCycle = false;
-                    endCycle = true;
-                }
+                dialogContinue();
             }
         });
         stage.addActor(clickLabel);
+    }
+
+    private void dialogContinue() {
+        if (dialogIndex + 1 == currentDialog.length && endCycle) {
+            if (!player.settings.muteSfx) rm.textprogression.play(player.settings.sfxVolume);
+            // the text animation has run through every element of the text array
+            endDialog();
+            handleBattleEvent(nextEvent);
+        }
+        // after a cycle of text animation ends, clicking the UI goes to the next cycle
+        else if (endCycle && dialogIndex < currentDialog.length) {
+            if (!player.settings.muteSfx) rm.textprogression.play(player.settings.sfxVolume);
+            dialogIndex++;
+            reset();
+            currentText = currentDialog[dialogIndex];
+            anim = currentText.split("");
+            beginCycle = true;
+        }
+        // clicking on the box during a text animation completes it early
+        else if (beginCycle && !endCycle) {
+            resultingText = currentText;
+            textLabel.setText(resultingText);
+            beginCycle = false;
+            endCycle = true;
+        }
     }
 
     /**
@@ -182,6 +188,9 @@ public class BattleEventHandler extends BattleUI {
                 stateTime = 0;
             }
         }
+
+        if (clickLabel.isTouchable() && Gdx.input.isKeyJustPressed(Input.Keys.BUTTON_A))
+            dialogContinue();
     }
 
     public void render(float dt) {
